@@ -1,88 +1,130 @@
-# Social Media Platform - README
+# 🌐 PySocial Graph
 
-## Overview
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=for-the-badge&logo=python&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Active-success?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
-This project is a simple text-based social media platform that allows users to create accounts, post messages, comment on posts, follow other users, and receive friend suggestions based on their followed accounts. The platform is built using Object-Oriented Programming (OOP) concepts and includes the use of Data Structures and Algorithms (DSA) to efficiently manage user data and perform various operations.
+> **A pure Python, in-memory social media engine demonstrating Object-Oriented Design patterns, Graph-based friend recommendations, and efficient data structures.**
 
-## Table of Contents
+---
 
-1. [Introduction](#introduction)
-2. [Features](#features)
-3. [Object-Oriented Programming (OOP)](#object-oriented-programming-oop)
-4. [Data Structures and Algorithms (DSA)](#data-structures-and-algorithms-dsa)
-5. [Time and Space Complexity](#time-and-space-complexity)
-6. [Functions and Descriptions](#functions-and-descriptions)
-7. [Usage](#usage)
-8. [Conclusion](#conclusion)
+## 🚀 Overview
 
-## Introduction
+**PySocial Graph** is a simulation of a social media backend, built to demonstrate core Computer Science principles without the overhead of external databases or frameworks. It features a custom-built interactions graph that powers a **Friend-of-Friend Recommendation Engine**, all running in an interactive CLI environment.
 
-The Social Media Platform is a command-line application developed in Python. Its primary purpose is to simulate a basic social media experience where users can interact by posting messages, following each other, and receiving friend suggestions.
+This project serves as a clean, reference implementation of relationships (Followers/Following) and content distribution (Posts/Feeds) using native Python objects.
 
-## Features
+## ✨ Key Features
 
-1. Account Creation: Users can create new accounts with unique usernames and emails.
-2. Login: Users can log in with their usernames to access their accounts.
-3. Post Messages: Logged-in users can post messages to share with their followers.
-4. Comment on Posts: Users can comment on posts made by other users.
-5. Follow Users: Users can follow other users to see their posts in their feed.
-6. Friend Suggestions: The platform suggests friends based on the accounts the user is following.
-7. Post Likes: Users can like posts made by others.
+*   **👥 User Management System**: Complete lifecycle handling (Sign Up, Login, Authentication) using efficient dictionary lookups (`O(1)` access).
+*   **🕸️ Graph-Based Connections**: Implements a directional graph for user relationships (Following/Followers).
+*   **🔍 Smart Recommendation Engine**: Algorithms that traverse the social graph to suggest connections based on mutual friends (`Friend-of-Friend` logic).
+*   **💬 Interactive Feed**: Real-time posting, commenting, and liking system simulating a live production environment.
+*   **⚡ Optimized Performance**: Uses Sets for relationship storage to ensure unique connections and `O(1)` membership testing.
 
-## Object-Oriented Programming (OOP)
+## 🛠️ Tech Stack
 
-This project extensively utilizes OOP principles to create well-organized and modular code. The main classes used in the project are:
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Language** | Python 3.x | Core logic and object definitions. |
+| **Data Structures** | Lists, Sets, Dicts | Optimized in-memory storage. |
+| **Architecture** | OOP / Modular | Modular design with separate classes for `User`, `Post`, and `Platform`. |
 
-1. `User`: Represents a user account with attributes like name, address, email, and username. It contains methods for posting messages, commenting on posts, following users, and getting friend suggestions.
+## 🏗️ Architecture
 
-2. `Post`: Represents a user's post with attributes like the user who created the post, content, and the number of likes. It has a method to add likes to a post.
+The system is built on a modular Object-Oriented architecture.
 
-3. `SocialMediaPlatform`: This class is the core of the social media platform. It handles account creation, login, and user interactions. It maintains dictionaries to store users by email and username for quick access.
+```mermaid
+classDiagram
+    class SocialMediaPlatform {
+        +dict users_by_email
+        +dict users_by_username
+        +User logged_in_user
+        +create_account()
+        +login()
+    }
+    class User {
+        +str username
+        +str email
+        +list posts
+        +set friends
+        +post_message()
+        +follow_user()
+        +get_friend_suggestions()
+    }
+    class Post {
+        +User author
+        +str content
+        +int likes
+        +add_like()
+    }
 
-## Data Structures and Algorithms (DSA)
+    SocialMediaPlatform "1" *-- "*" User : manages >
+    User "1" *-- "*" Post : creates >
+    User "1" o-- "*" User : follows >
+```
 
-The project uses the following DSA concepts:
+## 🚀 Getting Started
 
-1. **Dictionaries**: Dictionaries are used to efficiently store user data and retrieve users by their email and username.
+### Prerequisites
+*   Python 3.8 or higher installed on your machine.
 
-2. **Sets**: Sets are used to store the friends of a user. Sets allow efficient membership checks and eliminate duplicate entries.
+### Installation
 
-## Time and Space Complexity
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/yourusername/social-media-platform.git
+    cd social-media-platform
+    ```
 
-- The time complexity of account creation and login methods is O(1) as they involve constant-time operations like dictionary lookups and insertions.
+2.  **Run the Application**
+    ```bash
+    python social_media_platform.py
+    ```
 
-- The time complexity of posting messages, commenting on posts, and following users is also O(1) as they involve simple data structure operations like appending to lists and adding to sets.
+## 🎮 Usage Example
 
-- The time complexity of getting friend suggestions is O(N*M) in the worst case, where N is the number of friends of the user and M is the average number of friends of the user's friends.
+Interact with the specific scenarios directly in your terminal:
 
-- The space complexity of the project is linear, O(N), where N is the number of users. Each user's data is stored in the dictionaries, and the number of users directly impacts the space consumption.
+```text
+Welcome to the Social Media Platform!
+1. Create Account
+2. Login
+3. Exit
+Enter your choice: 1
 
-## Functions and Descriptions
+> Creating Account...
+Enter your name: Alice
+Enter email: alice@example.com
+Username: ali_c
 
-1. `create_account(name, address, email, username)`: Creates a new user account with the provided details. Returns the created user object or None if the email or username is already in use.
+> Logging In...
+Welcome, Alice!
 
-2. `login(username)`: Logs in the user with the given username. Returns True if the user exists, False otherwise.
+User Options:
+1. Create a Post
+2. See Other Posts
+3. Follow a User
+4. See Friend Suggestions
+...
+```
 
-3. `post_message(message)`: Allows the logged-in user to post a message on their account.
+## 📂 Project Structure
 
-4. `comment_on_post(post, comment)`: Adds a comment to the specified post.
+```bash
+.
+├── social_media_platform.py  # Entry point & Controller (Main Loop)
+├── user.py                   # User Class (Attributes, Graph Traversal methods)
+├── post.py                   # Post Class (Content, Likes logic)
+└── README.md                 # Documentation
+```
 
-5. `follow_user(user)`: Allows the logged-in user to follow another user.
+## 🔮 Roadmap
 
-6. `get_friend_suggestions()`: Returns a set of friend suggestions based on the accounts the user is following.
+*   [ ] Persistent Storage (SQLite integration).
+*   [ ] REST API wrapping (using Flask/FastAPI).
+*   [ ] Advanced Graph Algorithms (Shortest path to user).
+*   [ ] Unit Tests suite.
 
-7. `like_post(post)`: Increments the number of likes for the specified post.
-
-8. `display_posts()`: Displays all posts of the user along with their username.
-
-9. `display_friends()`: Displays the usernames of all friends of the user.
-
-## Usage
-
-1. Clone the repository and navigate to the project directory.
-2. Run the `social_media_platform.py` file with a compatible Python interpreter (e.g., Python 3.8+).
-3. Follow the on-screen instructions to create an account, login, and interact with the social media platform.
-
-## Conclusion
-
-The Social Media Platform project demonstrates the application of OOP principles and DSA concepts to build a basic social media simulation. Users can create accounts, post messages, follow other users, and receive friend suggestions. This project serves as a foundation for further enhancements and more sophisticated social media
+---
+*Maintained by Sukesh. Open for contributions!*
