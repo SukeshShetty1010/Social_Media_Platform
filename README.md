@@ -40,28 +40,35 @@ classDiagram
         +dict users_by_email
         +dict users_by_username
         +User logged_in_user
-        +create_account()
-        +login()
+        +create_account(name, address, email, username) User
+        +login(username) bool
     }
     class User {
-        +str username
+        +str name
+        +str address
         +str email
+        +str username
         +list posts
+        +list comments
         +set friends
-        +post_message()
-        +follow_user()
-        +get_friend_suggestions()
+        +post_message(message)
+        +comment_on_post(post, comment)
+        +follow_user(user)
+        +get_friend_suggestions() set
+        +like_post(post)
+        +display_posts()
+        +display_friends()
     }
     class Post {
-        +User author
+        +User user
         +str content
         +int likes
         +add_like()
     }
 
-    SocialMediaPlatform "1" *-- "*" User : manages >
-    User "1" *-- "*" Post : creates >
-    User "1" o-- "*" User : follows >
+    SocialMediaPlatform "1" *-- "*" User : manages
+    User "1" *-- "*" Post : creates
+    User "1" o-- "*" User : follows
 ```
 
 ## 🚀 Getting Started
